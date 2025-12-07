@@ -25,27 +25,31 @@
   <!-- Main Content -->
   <main class="max-w-5xl mx-auto p-6 space-y-8">
     <!-- Profile Setup -->
-    <section id="profile" class="bg-gray-800 rounded-lg p-6 shadow">
+    <section id="profile" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
       <h2 class="text-xl font-semibold mb-4">Profile Setup</h2>
-      <div class="space-y-3">
-        <label class="block">Name/Nickname: <input id="pf_name" class="w-full bg-gray-700 rounded p-2"></label>
-        <label class="block">Age: <input id="pf_age" type="number" class="w-full bg-gray-700 rounded p-2"></label>
-        <label class="block">Height (cm): <input id="pf_height_cm" type="number" class="w-full bg-gray-700 rounded p-2"></label>
-        <label class="block">Starting Weight (lb): <input id="pf_weight" type="number" class="w-full bg-gray-700 rounded p-2"></label>
-        <label class="block">Diet Type:
-          <select id="diet_type" class="w-full bg-gray-700 rounded p-2">
-            <option value="balanced">Balanced</option>
-            <option value="keto">Keto</option>
-            <option value="vegetarian">Vegetarian</option>
-          </select>
-        </label>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-3">
+          <label class="block">Name/Nickname: <input id="pf_name" class="w-full bg-gray-700 rounded p-2"></label>
+          <label class="block">Age: <input id="pf_age" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+          <label class="block">Height (cm): <input id="pf_height_cm" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+          <label class="block">Starting Weight (lb): <input id="pf_weight" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+        </div>
+        <div class="space-y-3">
+          <label class="block">Diet Type:
+            <select id="diet_type" class="w-full bg-gray-700 rounded p-2">
+              <option value="balanced">Balanced</option>
+              <option value="keto">Keto</option>
+              <option value="vegetarian">Vegetarian</option>
+            </select>
+          </label>
+        </div>
       </div>
       <button id="saveProfile" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Save Profile</button>
       <span id="profileStatus" class="text-sm text-gray-400 ml-2"></span>
     </section>
 
     <!-- Goal Calculator -->
-    <section id="goals" class="bg-gray-800 rounded-lg p-6 shadow">
+    <section id="goals" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
       <h2 class="text-xl font-semibold mb-4">Goal Calculator</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div class="stat"><div class="text-gray-400 text-sm">Current BMI</div><div id="curBMI" class="text-lg font-bold">—</div></div>
@@ -70,48 +74,38 @@
     </section>
 
     <!-- Workout Plan -->
-    <section id="workouts" class="bg-gray-800 rounded-lg p-6 shadow">
+    <section id="workouts" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
       <h2 class="text-xl font-semibold mb-4">Workout Plan</h2>
       <button id="genWorkout" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Generate Workout Plan</button>
-      <table class="w-full text-sm">
-        <thead><tr class="text-gray-400"><th class="p-2">Day</th><th class="p-2">Focus</th><th class="p-2">Exercises</th></tr></thead>
+      <table class="w-full text-sm border border-gray-700 rounded">
+        <thead class="bg-gray-700 text-gray-300"><tr><th class="p-2">Day</th><th class="p-2">Focus</th><th class="p-2">Exercises</th></tr></thead>
         <tbody id="workoutTable"></tbody>
       </table>
     </section>
 
     <!-- Meal Plan -->
-    <section id="meals" class="bg-gray-800 rounded-lg p-6 shadow">
+    <section id="meals" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
       <h2 class="text-xl font-semibold mb-4">Meal Plan</h2>
       <button id="genMeals" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Generate Meal Plan</button>
-      <table class="w-full text-sm">
-        <thead><tr class="text-gray-400"><th class="p-2">Day</th><th class="p-2">Breakfast</th><th class="p-2">Lunch</th><th class="p-2">Dinner</th></tr></thead>
+      <table class="w-full text-sm border border-gray-700 rounded">
+        <thead class="bg-gray-700 text-gray-300"><tr><th class="p-2">Day</th><th class="p-2">Breakfast</th><th class="p-2">Lunch</th><th class="p-2">Dinner</th></tr></thead>
         <tbody id="mealPlanTable"></tbody>
       </table>
     </section>
 
     <!-- Weight Log -->
-    <section id="weight" class="bg-gray-800 rounded-lg p-6 shadow">
+    <section id="weight" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
       <h2 class="text-xl font-semibold mb-4">Weight Log</h2>
       <div class="flex space-x-2 mb-4">
         <input id="wl_date" type="date" class="bg-gray-700 rounded p-2">
         <input id="wl_weight" type="number" placeholder="Weight (lb)" class="bg-gray-700 rounded p-2">
         <button id="wl_add" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add Entry</button>
       </div>
-      <table class="w-full text-sm mb-4">
-        <thead><tr class="text-gray-400"><th class="p-2">Date</th><th class="p-2">Weight</th><th class="p-2">Δ vs prior</th></tr></thead>
+      <table class="w-full text-sm border border-gray-700 rounded mb-4">
+        <thead class="bg-gray-700 text-gray-300"><tr><th class="p-2">Date</th><th class="p-2">Weight</th><th class="p-2">Δ vs prior</th></tr></thead>
         <tbody id="wl_table"></tbody>
       </table>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="stat"><div class="text-gray-400 text-sm">Current</div><div id="wl_current" class="text-lg font-bold">—</div></div>
         <div class="stat"><div class="text-gray-400 text-sm">Change vs prior</div><div id="wl_change" class="text-lg font-bold">—</div></div>
-        <div class="stat"><div class="text-gray-400 text-sm">Entries</div><div id="wl_count" class="text-lg font-bold">0</div></div>
-      </div>
-    </section>
-
-    <footer class="text-center text-gray-500 text-sm mt-8">LifeGoals © Your Brand</footer>
-  </main>
-
-  <!-- External JS -->
-  <script src="script.js"></script>
-</body>
-</html>
+        <div class="stat"><div class="text-gray-400 text-sm">Entries</div><div id="
