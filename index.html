@@ -5,85 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LifeGoals – Personalized Health & Planning</title>
   <!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>LifeGoals – Personalized Health & Planning</h1>
-    <button id="resetAll">Reset Data</button>
-  </header>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <!-- Navigation Bar -->
+  <nav class="bg-gray-800 sticky top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <span class="font-bold text-lg text-blue-400">LifeGoals</span>
+      <div class="space-x-4">
+        <a href="#profile" class="hover:text-blue-300">Profile</a>
+        <a href="#goals" class="hover:text-blue-300">Goals</a>
+        <a href="#workouts" class="hover:text-blue-300">Workouts</a>
+        <a href="#meals" class="hover:text-blue-300">Meals</a>
+        <a href="#weight" class="hover:text-blue-300">Weight Log</a>
+      </div>
+    </div>
+  </nav>
 
-  <main class="container">
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto p-6 space-y-8">
     <!-- Profile Setup -->
-    <section class="card">
-      <h2>Profile Setup</h2>
-      <label>Name/Nickname: <input id="pf_name"></label>
-      <label>Age: <input id="pf_age" type="number"></label>
-      <label>Height (cm): <input id="pf_height_cm" type="number"></label>
-      <label>Starting Weight (lb): <input id="pf_weight" type="number"></label>
-      <label>Diet Type:
-        <select id="diet_type">
-          <option value="balanced">Balanced</option>
-          <option value="keto">Keto</option>
-          <option value="vegetarian">Vegetarian</option>
-        </select>
-      </label>
-      <button id="saveProfile" class="primary">Save Profile</button>
-      <span id="profileStatus" class="note"></span>
+    <section id="profile" class="bg-gray-800 rounded-lg p-6 shadow">
+      <h2 class="text-xl font-semibold mb-4">Profile Setup</h2>
+      <div class="space-y-3">
+        <label class="block">Name/Nickname: <input id="pf_name" class="w-full bg-gray-700 rounded p-2"></label>
+        <label class="block">Age: <input id="pf_age" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+        <label class="block">Height (cm): <input id="pf_height_cm" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+        <label class="block">Starting Weight (lb): <input id="pf_weight" type="number" class="w-full bg-gray-700 rounded p-2"></label>
+        <label class="block">Diet Type:
+          <select id="diet_type" class="w-full bg-gray-700 rounded p-2">
+            <option value="balanced">Balanced</option>
+            <option value="keto">Keto</option>
+            <option value="vegetarian">Vegetarian</option>
+          </select>
+        </label>
+      </div>
+      <button id="saveProfile" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Save Profile</button>
+      <span id="profileStatus" class="text-sm text-gray-400 ml-2"></span>
     </section>
 
     <!-- Goal Calculator -->
-    <section class="card">
-      <h2>Goal Calculator</h2>
-      <div class="grid grid-3">
-        <div class="stat"><div class="label">Current BMI</div><div class="value" id="curBMI">—</div></div>
-        <div class="stat"><div class="label">Suggested Goal (lb)</div><div class="value" id="suggestedGoal">—</div></div>
-        <div class="stat"><div class="label">Your Goal (lb)</div><div class="value" id="goalDisplay">—</div></div>
+    <section id="goals" class="bg-gray-800 rounded-lg p-6 shadow">
+      <h2 class="text-xl font-semibold mb-4">Goal Calculator</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="stat"><div class="text-gray-400 text-sm">Current BMI</div><div id="curBMI" class="text-lg font-bold">—</div></div>
+        <div class="stat"><div class="text-gray-400 text-sm">Suggested Goal (lb)</div><div id="suggestedGoal" class="text-lg font-bold">—</div></div>
+        <div class="stat"><div class="text-gray-400 text-sm">Your Goal (lb)</div><div id="goalDisplay" class="text-lg font-bold">—</div></div>
       </div>
-      <input id="goal_weight" type="number" placeholder="Override goal (lb)">
-      <button id="saveGoal" class="primary">Save Goal</button>
-      <span id="goalStatus" class="note"></span>
-      <div style="margin-top:10px;">
-        <div class="label">Progress toward goal</div>
-        <div id="progressWrap" style="background:#0b1220; border:1px solid var(--border); border-radius:8px; height:16px;">
-          <div id="progressBar" style="height:100%; width:0%; background: var(--good);"></div>
+      <div class="flex items-center space-x-2">
+        <input id="goal_weight" type="number" placeholder="Override goal (lb)" class="bg-gray-700 rounded p-2">
+        <button id="saveGoal" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Save Goal</button>
+        <span id="goalStatus" class="text-sm text-gray-400"></span>
+      </div>
+      <div class="mt-4">
+        <div class="text-gray-400 text-sm mb-1">Progress toward goal</div>
+        <div id="progressWrap" class="w-full bg-gray-700 rounded h-4">
+          <div id="progressBar" class="h-4 bg-green-500 rounded" style="width:0%"></div>
         </div>
-        <span id="progressText" class="note"></span>
+        <div class="flex justify-between text-sm text-gray-400 mt-1">
+          <span id="progressText">—</span>
+          <span id="distanceText">—</span>
+        </div>
       </div>
     </section>
 
     <!-- Workout Plan -->
-    <section class="card">
-      <h2>Workout Plan</h2>
-      <button id="genWorkout" class="primary">Generate Workout Plan</button>
-      <table id="workoutTable"><thead><tr><th>Day</th><th>Focus</th><th>Exercises</th></tr></thead><tbody></tbody></table>
+    <section id="workouts" class="bg-gray-800 rounded-lg p-6 shadow">
+      <h2 class="text-xl font-semibold mb-4">Workout Plan</h2>
+      <button id="genWorkout" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Generate Workout Plan</button>
+      <table class="w-full text-sm">
+        <thead><tr class="text-gray-400"><th class="p-2">Day</th><th class="p-2">Focus</th><th class="p-2">Exercises</th></tr></thead>
+        <tbody id="workoutTable"></tbody>
+      </table>
     </section>
 
     <!-- Meal Plan -->
-    <section class="card">
-      <h2>Meal Plan</h2>
-      <button id="genMeals" class="primary">Generate Meal Plan</button>
-      <table id="mealPlanTable"><thead><tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr></thead><tbody></tbody></table>
+    <section id="meals" class="bg-gray-800 rounded-lg p-6 shadow">
+      <h2 class="text-xl font-semibold mb-4">Meal Plan</h2>
+      <button id="genMeals" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Generate Meal Plan</button>
+      <table class="w-full text-sm">
+        <thead><tr class="text-gray-400"><th class="p-2">Day</th><th class="p-2">Breakfast</th><th class="p-2">Lunch</th><th class="p-2">Dinner</th></tr></thead>
+        <tbody id="mealPlanTable"></tbody>
+      </table>
     </section>
 
     <!-- Weight Log -->
-    <section class="card">
-      <h2>Weight Log</h2>
-      <input id="wl_date" type="date">
-      <input id="wl_weight" type="number" placeholder="Weight (lb)">
-      <button id="wl_add">Add Entry</button>
-      <table id="wl_table"><thead><tr><th>Date</th><th>Weight</th><th>Δ vs prior</th></tr></thead><tbody></tbody></table>
-      <div class="grid grid-3">
-        <div class="stat"><div class="label">Current</div><div class="value" id="wl_current">—</div></div>
-        <div class="stat"><div class="label">Change vs prior</div><div class="value" id="wl_change">—</div></div>
-        <div class="stat"><div class="label">Entries</div><div class="value" id="wl_count">0</div></div>
+    <section id="weight" class="bg-gray-800 rounded-lg p-6 shadow">
+      <h2 class="text-xl font-semibold mb-4">Weight Log</h2>
+      <div class="flex space-x-2 mb-4">
+        <input id="wl_date" type="date" class="bg-gray-700 rounded p-2">
+        <input id="wl_weight" type="number" placeholder="Weight (lb)" class="bg-gray-700 rounded p-2">
+        <button id="wl_add" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add Entry</button>
+      </div>
+      <table class="w-full text-sm mb-4">
+        <thead><tr class="text-gray-400"><th class="p-2">Date</th><th class="p-2">Weight</th><th class="p-2">Δ vs prior</th></tr></thead>
+        <tbody id="wl_table"></tbody>
+      </table>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="stat"><div class="text-gray-400 text-sm">Current</div><div id="wl_current" class="text-lg font-bold">—</div></div>
+        <div class="stat"><div class="text-gray-400 text-sm">Change vs prior</div><div id="wl_change" class="text-lg font-bold">—</div></div>
+        <div class="stat"><div class="text-gray-400 text-sm">Entries</div><div id="wl_count" class="text-lg font-bold">0</div></div>
       </div>
     </section>
 
-    <div class="footer">LifeGoals © Your Brand</div>
+    <footer class="text-center text-gray-500 text-sm mt-8">LifeGoals © Your Brand</footer>
   </main>
 
-  <!-- Link external JS -->
+  <!-- External JS -->
   <script src="script.js"></script>
 </body>
 </html>
