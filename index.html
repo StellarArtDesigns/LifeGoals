@@ -9,11 +9,9 @@
       --bg: #0f172a; --card: #111827; --text: #e5e7eb; --muted: #9ca3af; --border: #1f2937;
       --accent: #60a5fa; --good: #34d399; --warn: #f59e0b; --bad: #ef4444;
     }
-    * { box-sizing: border-box; }
     body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); }
     header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;}
     header h1 { margin: 0; font-size: 18px; }
-    header .actions { display: flex; gap: 8px; align-items: center; }
     .container { padding: 16px; display: grid; gap: 16px; max-width: 1100px; margin: 0 auto; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
     .card h2 { margin: 0 0 12px; font-size: 16px; }
@@ -24,475 +22,95 @@
       .grid-2 { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
     }
-    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    label { display: block; margin: 8px 0 4px; color: var(--muted); font-size: 13px; }
-    input, select, button, textarea {
-      background: #0b1220; color: var(--text); border: 1px solid var(--border);
-      border-radius: 8px; padding: 8px 10px; font-size: 14px;
-    }
-    input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; }
-    button { cursor: pointer; }
-    button.primary { background: var(--accent); color: #021428; border: none; }
+    input, select, button { background: #0b1220; color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+    button.primary { background: var(--accent); color: #021428; border: none; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th, td { padding: 8px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th, td { padding: 8px; border-bottom: 1px solid var(--border); text-align: left; }
     th { color: var(--muted); font-weight: 600; }
-    .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #1f2937; color: var(--muted); font-size: 12px; }
     .stat { display: grid; gap: 4px; }
     .stat .label { color: var(--muted); font-size: 12px; }
     .stat .value { font-size: 18px; font-weight: 600; }
-    .section-actions { display: flex; gap: 8px; align-items: center; justify-content: flex-end; }
-    .hr { height: 1px; background: var(--border); margin: 12px 0; }
     .note { color: var(--muted); font-size: 12px; }
-    .success { color: var(--good); }
-    .warn { color: var(--warn); }
-    .error { color: var(--bad); }
-    .tip { background: #0b1220; border: 1px dashed var(--border); color: var(--muted); padding: 8px 10px; border-radius: 8px; font-size: 13px; }
     .footer { color: var(--muted); font-size: 12px; text-align: center; padding: 10px 0 20px; }
   </style>
 </head>
 <body>
   <header>
     <h1>LifeGoals – Personalized Health & Planning</h1>
-    <div class="actions">
-      <span class="pill">Mobile-friendly</span>
-      <span class="pill">Works on iPhone + Windows</span>
-      <button id="resetAll" title="Clear all saved data">Reset data</button>
-    </div>
+    <button id="resetAll">Reset Data</button>
   </header>
 
   <main class="container">
-    <!-- PROFILE SETUP -->
+    <!-- Profile Setup -->
     <section class="card">
-      <h2>Profile setup</h2>
-      <div class="grid grid-2">
-        <div>
-          <label for="pf_name">Name / nickname</label>
-          <input id="pf_name" placeholder="e.g., Violet" />
-
-          <label for="pf_age">Age</label>
-          <input id="pf_age" type="number" min="10" max="120" placeholder="e.g., 35" />
-
-          <label for="pf_height">Height</label>
-          <div class="row">
-            <input id="pf_height_ft" type="number" min="3" max="8" placeholder="ft" style="width:90px" />
-            <input id="pf_height_in" type="number" min="0" max="11" placeholder="in" style="width:90px" />
-            <span class="note">or enter cm:</span>
-            <input id="pf_height_cm" type="number" min="100" max="250" placeholder="cm" style="width:120px" />
-          </div>
-
-          <label for="pf_weight">Starting weight (lb)</label>
-          <input id="pf_weight" type="number" min="50" max="600" placeholder="e.g., 225" />
-        </div>
-
-        <div>
-          <label>Equipment you have</label>
-          <div class="row" style="gap:14px">
-            <label><input type="checkbox" class="eq" value="treadmill"> Treadmill</label>
-            <label><input type="checkbox" class="eq" value="elliptical"> Elliptical</label>
-            <label><input type="checkbox" class="eq" value="dumbbells"> Dumbbells</label>
-            <label><input type="checkbox" class="eq" value="kettlebell"> Kettlebell</label>
-            <label><input type="checkbox" class="eq" value="resistance-bands"> Resistance bands</label>
-            <label><input type="checkbox" class="eq" value="yoga-mat"> Yoga mat</label>
-            <label><input type="checkbox" class="eq" value="jump-rope"> Jump rope</label>
-            <label><input type="checkbox" class="eq" value="none"> No equipment</label>
-          </div>
-
-          <div class="hr"></div>
-
-          <label>Diet type</label>
-          <select id="diet_type">
-            <option value="balanced">Balanced</option>
-            <option value="high-protein">High protein</option>
-            <option value="keto">Keto</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="gluten-free">Gluten-free</option>
-            <option value="kidney-friendly">Kidney-friendly</option>
-          </select>
-
-          <label>Dietary sensitivities</label>
-          <div class="row" style="gap:14px">
-            <label><input type="checkbox" class="sens" value="gluten"> Gluten</label>
-            <label><input type="checkbox" class="sens" value="dairy"> Dairy</label>
-            <label><input type="checkbox" class="sens" value="soy"> Soy</label>
-            <label><input type="checkbox" class="sens" value="egg"> Egg</label>
-            <label><input type="checkbox" class="sens" value="nuts"> Nuts</label>
-            <label><input type="checkbox" class="sens" value="shellfish"> Shellfish</label>
-            <label><input type="checkbox" class="sens" value="high-sodium"> High sodium</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-actions">
-        <button class="primary" id="saveProfile">Save profile</button>
-        <span id="profileStatus" class="note"></span>
-      </div>
-
-      <div class="tip">Tip: If you enter height in feet/inches, the cm field auto-calculates after saving. If you prefer cm, only fill that field.</div>
+      <h2>Profile Setup</h2>
+      <label>Name/Nickname: <input id="pf_name"></label>
+      <label>Age: <input id="pf_age" type="number"></label>
+      <label>Height (cm): <input id="pf_height_cm" type="number"></label>
+      <label>Starting Weight (lb): <input id="pf_weight" type="number"></label>
+      <label>Diet Type:
+        <select id="diet_type">
+          <option value="balanced">Balanced</option>
+          <option value="keto">Keto</option>
+          <option value="vegetarian">Vegetarian</option>
+        </select>
+      </label>
+      <button id="saveProfile" class="primary">Save Profile</button>
+      <span id="profileStatus" class="note"></span>
     </section>
 
-    <!-- GOAL CALCULATOR -->
+    <!-- Goal Calculator -->
     <section class="card">
-      <h2>Goal calculator</h2>
-      <p class="note">We’ll suggest a goal weight based on healthy BMI. You can override it with your own target.</p>
+      <h2>Goal Calculator</h2>
       <div class="grid grid-3">
         <div class="stat"><div class="label">Current BMI</div><div class="value" id="curBMI">—</div></div>
-        <div class="stat"><div class="label">Healthy range (BMI)</div><div class="value">18.5–24.9</div></div>
-        <div class="stat"><div class="label">Suggested goal (lb)</div><div class="value" id="suggestedGoal">—</div></div>
+        <div class="stat"><div class="label">Suggested Goal (lb)</div><div class="value" id="suggestedGoal">—</div></div>
+        <div class="stat"><div class="label">Your Goal (lb)</div><div class="value" id="goalDisplay">—</div></div>
       </div>
-      <div class="row" style="margin-top:12px;">
-        <label for="goal_weight">Your goal weight (override)</label>
-        <input id="goal_weight" type="number" min="80" max="500" placeholder="Enter your target (lb)" />
-        <button id="saveGoal" class="primary">Save goal</button>
-        <span id="goalStatus" class="note"></span>
+      <input id="goal_weight" type="number" placeholder="Override goal (lb)">
+      <button id="saveGoal" class="primary">Save Goal</button>
+      <span id="goalStatus" class="note"></span>
+      <div style="margin-top:10px;">
+        <div class="label">Progress toward goal</div>
+        <div id="progressWrap" style="background:#0b1220; border:1px solid var(--border); border-radius:8px; height:16px;">
+          <div id="progressBar" style="height:100%; width:0%; background: var(--good);"></div>
+        </div>
+        <span id="progressText" class="note"></span>
       </div>
     </section>
 
-    <!-- WORKOUT PLAN -->
+    <!-- Workout Plan -->
     <section class="card">
-      <h2>Weekly workout plan</h2>
-      <p class="note">Generated from your equipment and goals. Morning slot: 5:00–5:40 AM. You can edit items later.</p>
-      <div class="section-actions">
-        <button id="genWorkout" class="primary">Generate workout plan</button>
-        <span id="workoutStatus" class="note"></span>
-      </div>
-      <table id="workoutTable">
-        <thead>
-          <tr><th>Day</th><th>Focus</th><th>Exercises</th><th>Notes</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <h2>Workout Plan</h2>
+      <button id="genWorkout" class="primary">Generate Workout Plan</button>
+      <table id="workoutTable"><thead><tr><th>Day</th><th>Focus</th><th>Exercises</th></tr></thead><tbody></tbody></table>
     </section>
 
-    <!-- MEAL PLAN -->
+    <!-- Meal Plan -->
     <section class="card">
-      <h2>7-day meal plan</h2>
-      <p class="note">Customized for your diet type and sensitivities. You can tweak meals as you go.</p>
-      <div class="section-actions">
-        <button id="genMeals" class="primary">Generate meal plan</button>
-        <span id="mealStatus" class="note"></span>
-      </div>
-      <table id="mealPlanTable">
-        <thead>
-          <tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th><th>Snacks</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <h2>Meal Plan</h2>
+      <button id="genMeals" class="primary">Generate Meal Plan</button>
+      <table id="mealPlanTable"><thead><tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr></thead><tbody></tbody></table>
     </section>
 
-    <!-- WEIGHT LOG -->
+    <!-- Weight Log -->
     <section class="card">
-      <h2>Weight log & progress</h2>
-      <div class="row">
-        <input id="wl_date" type="date" />
-        <input id="wl_weight" type="number" step="0.1" placeholder="Weight (lb)" />
-        <button id="wl_add">Add entry</button>
-      </div>
-      <table id="wl_table" style="margin-top:10px;">
-        <thead><tr><th>Date</th><th>Weight</th><th>Δ vs prior</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <div class="grid grid-3" style="margin-top:12px;">
+      <h2>Weight Log</h2>
+      <input id="wl_date" type="date">
+      <input id="wl_weight" type="number" placeholder="Weight (lb)">
+      <button id="wl_add">Add Entry</button>
+      <table id="wl_table"><thead><tr><th>Date</th><th>Weight</th><th>Δ vs prior</th></tr></thead><tbody></tbody></table>
+      <div class="grid grid-3">
         <div class="stat"><div class="label">Current</div><div class="value" id="wl_current">—</div></div>
         <div class="stat"><div class="label">Change vs prior</div><div class="value" id="wl_change">—</div></div>
         <div class="stat"><div class="label">Entries</div><div class="value" id="wl_count">0</div></div>
       </div>
     </section>
 
-    <div class="footer">LifeGoals © Your Brand – Ready for expansion (Business, Finance, Planner)</div>
+    <div class="footer">LifeGoals © Your Brand</div>
   </main>
 
-  <script>
-    // Simple store using localStorage
-    const store = {
-      get: (key, fallback) => {
-        try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-        catch(e){ return fallback; }
-      },
-      set: (key, val) => localStorage.setItem(key, JSON.stringify(val)),
-      del: (key) => localStorage.removeItem(key)
-    };
-
-    // Elements
-    const els = {
-      name: document.getElementById('pf_name'),
-      age: document.getElementById('pf_age'),
-      htFt: document.getElementById('pf_height_ft'),
-      htIn: document.getElementById('pf_height_in'),
-      htCm: document.getElementById('pf_height_cm'),
-      wt: document.getElementById('pf_weight'),
-      dietType: document.getElementById('diet_type'),
-      saveProfile: document.getElementById('saveProfile'),
-      profileStatus: document.getElementById('profileStatus'),
-      saveGoal: document.getElementById('saveGoal'),
-      goalWeight: document.getElementById('goal_weight'),
-      goalStatus: document.getElementById('goalStatus'),
-      curBMI: document.getElementById('curBMI'),
-      suggestedGoal: document.getElementById('suggestedGoal'),
-      genWorkout: document.getElementById('genWorkout'),
-      workoutStatus: document.getElementById('workoutStatus'),
-      workoutTableBody: document.querySelector('#workoutTable tbody'),
-      genMeals: document.getElementById('genMeals'),
-      mealStatus: document.getElementById('mealStatus'),
-      mealTableBody: document.querySelector('#mealPlanTable tbody'),
-      wlAdd: document.getElementById('wl_add'),
-      wlDate: document.getElementById('wl_date'),
-      wlWeight: document.getElementById('wl_weight'),
-      wlTableBody: document.querySelector('#wl_table tbody'),
-      wlCurrent: document.getElementById('wl_current'),
-      wlChange: document.getElementById('wl_change'),
-      wlCount: document.getElementById('wl_count'),
-      resetAll: document.getElementById('resetAll')
-    };
-
-    // Helpers
-    const inchToCm = (ft, inch) => ((Number(ft)*12 + Number(inch)) * 2.54);
-    const lbToKg = (lb) => Number(lb) * 0.45359237;
-    const kgToLb = (kg) => Number(kg) / 0.45359237;
-    const clamp = (x,min,max)=>Math.max(min,Math.min(max,x));
-
-    // Load existing profile
-    function loadProfile(){
-      const p = store.get('profile', null);
-      if (!p) return;
-      els.name.value = p.name || '';
-      els.age.value = p.age || '';
-      els.htCm.value = p.heightCm || '';
-      els.htFt.value = p.heightFt || '';
-      els.htIn.value = p.heightIn || '';
-      els.wt.value = p.startWeight || '';
-      els.goalWeight.value = (store.get('goal',{weight:null}).weight || '');
-      // diet & sensitivities
-      els.dietType.value = p.dietType || 'balanced';
-      document.querySelectorAll('.sens').forEach(cb => cb.checked = (p.sensitivities || []).includes(cb.value));
-      document.querySelectorAll('.eq').forEach(cb => cb.checked = (p.equipment || []).includes(cb.value));
-      updateBMIAndSuggestion();
-      renderWorkoutPlan(store.get('workoutPlan', []));
-      renderMealPlan(store.get('mealPlan', []));
-      renderWeightLog(store.get('weightLog', []));
-    }
-
-    // Save profile
-    els.saveProfile.addEventListener('click', ()=>{
-      let heightCm = Number(els.htCm.value);
-      if (!heightCm && (els.htFt.value || els.htIn.value)) {
-        heightCm = Math.round(inchToCm(els.htFt.value || 0, els.htIn.value || 0));
-        els.htCm.value = heightCm;
-      }
-      const equipment = Array.from(document.querySelectorAll('.eq')).filter(cb=>cb.checked).map(cb=>cb.value);
-      const sensitivities = Array.from(document.querySelectorAll('.sens')).filter(cb=>cb.checked).map(cb=>cb.value);
-      const profile = {
-        name: els.name.value?.trim(),
-        age: Number(els.age.value) || null,
-        heightCm: heightCm || null,
-        heightFt: els.htFt.value || '',
-        heightIn: els.htIn.value || '',
-        startWeight: Number(els.wt.value) || null,
-        dietType: els.dietType.value,
-        equipment, sensitivities
-      };
-      store.set('profile', profile);
-      els.profileStatus.textContent = 'Profile saved.';
-      updateBMIAndSuggestion();
-    });
-
-    // BMI and suggested goal
-    function updateBMIAndSuggestion(){
-      const p = store.get('profile', null);
-      if (!p || !p.heightCm || !p.startWeight) { els.curBMI.textContent = '—'; els.suggestedGoal.textContent='—'; return; }
-      const hM = p.heightCm / 100;
-      const wKg = lbToKg(p.startWeight);
-      const bmi = wKg / (hM*hM);
-      els.curBMI.textContent = bmi ? bmi.toFixed(1) : '—';
-      // Suggested: midpoint of healthy BMI range to lb
-      const midBMI = 21.7;
-      const goalKg = midBMI * (hM*hM);
-      const goalLb = Math.round(kgToLb(goalKg));
-      els.suggestedGoal.textContent = goalLb;
-      // If user has override, keep it displayed in input
-      const g = store.get('goal', {weight: null});
-      if (g.weight) els.goalWeight.value = g.weight;
-    }
-
-    els.saveGoal.addEventListener('click', ()=>{
-      const gw = clamp(Number(els.goalWeight.value || 0), 80, 500);
-      if (!gw) { els.goalStatus.textContent = 'Enter a valid goal weight.'; return; }
-      store.set('goal', { weight: gw });
-      els.goalStatus.textContent = 'Goal saved.';
-    });
-
-    // Workout plan generator
-    els.genWorkout.addEventListener('click', ()=>{
-      const p = store.get('profile', null);
-      if (!p) { els.workoutStatus.textContent = 'Save your profile first.'; return; }
-      const eq = new Set(p.equipment || []);
-      const goal = store.get('goal', {weight:null}).weight;
-      const start = p.startWeight || null;
-      const intent = (goal && start && goal < start) ? 'fat-loss' : 'general';
-      const plan = generateWorkout(eq, intent);
-      store.set('workoutPlan', plan);
-      renderWorkoutPlan(plan);
-      els.workoutStatus.textContent = 'Workout plan generated.';
-    });
-
-    function generateWorkout(eq, intent){
-      const has = (x)=>eq.has(x);
-      const cardio = has('treadmill') ? 'Treadmill intervals'
-                    : has('elliptical') ? 'Elliptical steady state'
-                    : has('jump-rope') ? 'Jump rope intervals'
-                    : 'Brisk walk';
-      const strengthA = has('dumbbells') ? 'DB full-body circuit'
-                     : has('kettlebell') ? 'KB swings + goblet squats'
-                     : has('resistance-bands') ? 'Band push/pull/legs'
-                     : 'Bodyweight strength (push-ups, squats, lunges)';
-      const strengthB = has('dumbbells') ? 'DB push/pull split'
-                     : has('kettlebell') ? 'KB clean & press + rows'
-                     : has('resistance-bands') ? 'Band supersets'
-                     : 'Bodyweight core + glute focus';
-      const mobility = has('yoga-mat') ? 'Yoga flow + mobility'
-                      : 'Stretching routine';
-      const notesForIntent = intent==='fat-loss' ? 'Keep intensity moderate-high; finish with 5–10 min cooldown.' : 'Focus on consistency and good form.';
-      const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-      const focuses = ['Cardio', 'Strength', 'Mobility', 'Cardio', 'Strength', 'Active recovery', 'Mixed session'];
-      const exercises = [cardio, strengthA, mobility, cardio, strengthB, 'Dog walk + mobility', cardio+' + '+mobility];
-      return days.map((d,i)=>({ day:d, focus:focuses[i], exercises:exercises[i], notes: notesForIntent }));
-    }
-
-    function renderWorkoutPlan(plan){
-      els.workoutTableBody.innerHTML = '';
-      (plan || []).forEach(row=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${row.day}</td><td>${row.focus}</td><td>${row.exercises}</td><td>${row.notes}</td>`;
-        els.workoutTableBody.appendChild(tr);
-      });
-    }
-
-    // Meal plan generator
-    els.genMeals.addEventListener('click', ()=>{
-      const p = store.get('profile', null);
-      if (!p) { els.mealStatus.textContent = 'Save your profile first.'; return; }
-      const plan = generateMeals(p.dietType || 'balanced', new Set(p.sensitivities || []));
-      store.set('mealPlan', plan);
-      renderMealPlan(plan);
-      els.mealStatus.textContent = 'Meal plan generated.';
-    });
-
-    function generateMeals(dietType, sens){
-      const exclude = (meal)=> {
-        if (sens.has('gluten') && /wheat|bread|pasta|tortilla/i.test(meal)) return true;
-        if (sens.has('dairy') && /milk|cheese|yogurt/i.test(meal)) return true;
-        if (sens.has('soy') && /soy|tofu/i.test(meal)) return true;
-        if (sens.has('egg') && /egg/i.test(meal)) return true;
-        if (sens.has('nuts') && /almond|peanut|cashew|walnut/i.test(meal)) return true;
-        if (sens.has('shellfish') && /shrimp|crab|lobster/i.test(meal)) return true;
-        if (sens.has('high-sodium') && /processed|deli|canned soup/i.test(meal)) return true;
-        return false;
-      };
-      const swap = (meal)=> exclude(meal) ? 'Swap for sensitivity-safe option' : meal;
-      const templates = {
-        balanced: {
-          breakfast: ['Greek yogurt + berries', 'Oatmeal + banana', 'Egg scramble + veggies', 'Smoothie (spinach, banana, protein)', 'Avocado toast', 'Cottage cheese bowl', 'Chia pudding'],
-          lunch: ['Grilled chicken salad', 'Turkey wrap', 'Quinoa bowl + veggies', 'Sushi (rice + fish)', 'Brown rice + stir-fry', 'Baked salmon + greens', 'Chicken burrito bowl'],
-          dinner: ['Chicken + sweet potato + veg', 'Salmon + rice + asparagus', 'Lean beef + quinoa + veg', 'Turkey chili', 'Tofu stir-fry', 'Shrimp tacos', 'Veggie pasta'],
-          snacks: ['Apple + PB', 'Trail mix', 'Hummus + carrots', 'Protein shake', 'Rice cakes + cottage cheese', 'Dark chocolate + almonds', 'Popcorn']
-        },
-        'high-protein': {
-          breakfast: ['Eggs + turkey sausage', 'Protein pancakes', 'Greek yogurt parfait', 'Tofu scramble', 'Smoothie (whey/pea)', 'Cottage cheese + fruit', 'Omelet + spinach'],
-          lunch: ['Chicken breast + veggies', 'Tuna salad', 'Turkey burger (no bun)', 'Lentil bowl', 'Beef + greens', 'Shrimp salad', 'Poke bowl'],
-          dinner: ['Steak + veg', 'Chicken fajitas', 'Salmon + broccoli', 'Pork tenderloin + veg', 'Turkey meatballs + zoodles', 'Tempeh stir-fry', 'Chili (lean beef/turkey)'],
-          snacks: ['Jerky', 'Protein shake', 'Edamame', 'Greek yogurt', 'Cottage cheese', 'Hard-boiled eggs', 'Protein bar']
-        },
-        keto: {
-          breakfast: ['Eggs + avocado', 'Chia pudding (coconut milk)', 'Smoked salmon + cream cheese', 'Omelet + cheese + veg', 'Bacon + eggs', 'Yogurt (low carb) + nuts', 'Keto smoothie'],
-          lunch: ['Cobb salad', 'Chicken Caesar (no croutons)', 'Zucchini noodles + pesto', 'Burger bowl (no bun)', 'Tuna avocado boats', 'Egg salad', 'Shrimp + salad'],
-          dinner: ['Steak + buttered veg', 'Salmon + asparagus + hollandaise', 'Chicken alfredo (zoodles)', 'Pork chops + cauliflower mash', 'Meatballs + marinara (no pasta)', 'Sausage + peppers', 'Keto stir-fry'],
-          snacks: ['Olives', 'Cheese + salami', 'Nut butter', 'Pork rinds', 'Avocado', 'Macadamia nuts', 'Celery + cream cheese']
-        },
-        vegetarian: {
-          breakfast: ['Oatmeal + seeds', 'Yogurt + fruit', 'Avocado toast', 'Smoothie (pea protein)', 'Chia pudding', 'Pancakes', 'Tofu scramble'],
-          lunch: ['Quinoa + chickpea salad', 'Veggie wrap', 'Lentil soup', 'Sushi (veg)', 'Hummus bowl', 'Veggie burger', 'Caprese salad'],
-          dinner: ['Stir-fry + tofu', 'Bean chili', 'Veggie curry + rice', 'Pasta + marinara', 'Stuffed peppers', 'Mushroom tacos', 'Paneer tikka'],
-          snacks: ['Fruit + nuts', 'Protein shake (plant)', 'Hummus + veg', 'Yogurt', 'Popcorn', 'Trail mix', 'Cheese + crackers']
-        },
-        'gluten-free': {
-          breakfast: ['GF oats + fruit', 'Eggs + potatoes', 'Smoothie', 'Yogurt parfait (GF granola)', 'Chia pudding', 'Avocado + rice cakes', 'Tofu scramble'],
-          lunch: ['Chicken + quinoa bowl', 'GF wrap', 'Rice + beans + veg', 'Sushi (no soy if sensitive)', 'Baked salmon + greens', 'Turkey lettuce cups', 'Shrimp + rice'],
-          dinner: ['Chicken + sweet potato', 'Salmon + rice + veg', 'Stir-fry (tamari)', 'Chili', 'Taco bowl (no tortilla)', 'Steak + potatoes', 'Veggie curry + rice'],
-          snacks: ['Fruit + cheese', 'Hummus + veg', 'GF crackers + tuna', 'Protein shake', 'Yogurt', 'Popcorn', 'Rice cakes + PB']
-        },
-        'kidney-friendly': {
-          breakfast: ['Oatmeal + blueberries', 'Egg whites + toast', 'Yogurt (low sodium) + fruit', 'Smoothie (controlled protein)', 'Chia pudding', 'Rice cakes + cottage cheese (moderation)', 'Pancakes (low sodium)'],
-          lunch: ['Chicken salad (low sodium)', 'Turkey lettuce wraps', 'Quinoa + veg (moderate protein)', 'Rice bowl + grilled fish', 'Pasta + olive oil + veg', 'Veggie soup (low sodium)', 'Stir-fry (low sodium)'],
-          dinner: ['Grilled chicken + rice + veg', 'Baked fish + potatoes', 'Pasta + marinara', 'Turkey meatballs + rice', 'Tofu bowl (moderate protein)', 'Veggie tacos (low sodium)', 'Curry + rice (low sodium)'],
-          snacks: ['Fruit', 'Unsalted crackers', 'Hummus + veg', 'Yogurt (moderation)', 'Popcorn (unsalted)', 'Smoothie', 'Rice cakes']
-        }
-      };
-      const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-      const pick = (arr, i)=> arr[i % arr.length];
-      const t = templates[dietType] || templates['balanced'];
-      return days.map((d,i)=>({
-        day:d,
-        breakfast: swap(pick(t.breakfast,i)),
-        lunch: swap(pick(t.lunch,i)),
-        dinner: swap(pick(t.dinner,i)),
-        snacks: swap(pick(t.snacks,i))
-      }));
-    }
-
-    function renderMealPlan(plan){
-      els.mealTableBody.innerHTML = '';
-      (plan || []).forEach(row=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${row.day}</td><td>${row.breakfast}</td><td>${row.lunch}</td><td>${row.dinner}</td><td>${row.snacks}</td>`;
-        els.mealTableBody.appendChild(tr);
-      });
-    }
-
-    // Weight log
-    els.wlAdd.addEventListener('click', ()=>{
-      const date = els.wlDate.value;
-      const weight = Number(els.wlWeight.value);
-      if (!date || !weight) return alert('Enter date and weight.');
-      const log = store.get('weightLog', []);
-      log.push({ date, weight });
-      log.sort((a,b)=>a.date.localeCompare(b.date));
-      store.set('weightLog', log);
-      els.wlDate.value = ''; els.wlWeight.value = '';
-      renderWeightLog(log);
-    });
-
-    function renderWeightLog(log){
-      els.wlTableBody.innerHTML = '';
-      for (let i=0;i<(log||[]).length;i++){
-        const prior = i>0 ? (log[i].weight - log[i-1].weight) : null;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${log[i].date}</td><td>${log[i].weight.toFixed(1)} lb</td><td>${prior===null?'—':(prior>0?'+':'')+prior.toFixed(1)+' lb'}</td>`;
-        els.wlTableBody.appendChild(tr);
-      }
-      const n = (log||[]).length;
-      els.wlCount.textContent = n;
-      const cur = n ? log[n-1].weight : null;
-      els.wlCurrent.textContent = cur ? cur.toFixed(1)+' lb' : '—';
-      const ch = (n>=2) ? (log[n-1].weight - log[n-2].weight) : null;
-      els.wlChange.textContent = ch===null ? '—' : (ch>0?'+':'')+ch.toFixed(1)+' lb';
-    }
-
-    // Reset all
-    els.resetAll.addEventListener('click', ()=>{
-      if (!confirm('This will clear all saved data on this device. Continue?')) return;
-      ['profile','goal','workoutPlan','mealPlan','weightLog'].forEach(store.del);
-      loadProfile();
-      els.profileStatus.textContent = '';
-      els.goalStatus.textContent = '';
-      els.workoutStatus.textContent = '';
-      els.mealStatus.textContent = '';
-      alert('Data cleared. Reloading...');
-      location.reload();
-    });
-
-    // Initialize
-    window.addEventListener('load', ()=>{
-      loadProfile();
-    });
-  </script>
+  <!-- Link external JS -->
+  <script src="script.js"></script>
 </body>
 </html>
