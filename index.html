@@ -48,30 +48,34 @@
       <span id="profileStatus" class="text-sm text-gray-400 ml-2"></span>
     </section>
 
-    <!-- Goal Calculator -->
-    <section id="goals" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
-      <h2 class="text-xl font-semibold mb-4">Goal Calculator</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div class="stat"><div class="text-gray-400 text-sm">Current BMI</div><div id="curBMI" class="text-lg font-bold">—</div></div>
-        <div class="stat"><div class="text-gray-400 text-sm">Suggested Goal (lb)</div><div id="suggestedGoal" class="text-lg font-bold">—</div></div>
-        <div class="stat"><div class="text-gray-400 text-sm">Your Goal (lb)</div><div id="goalDisplay" class="text-lg font-bold">—</div></div>
-      </div>
-      <div class="flex items-center space-x-2">
-        <input id="goal_weight" type="number" placeholder="Override goal (lb)" class="bg-gray-700 rounded p-2">
-        <button id="saveGoal" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Save Goal</button>
-        <span id="goalStatus" class="text-sm text-gray-400"></span>
-      </div>
-      <div class="mt-4">
-        <div class="text-gray-400 text-sm mb-1">Progress toward goal</div>
-        <div id="progressWrap" class="w-full bg-gray-700 rounded h-4">
-          <div id="progressBar" class="h-4 bg-green-500 rounded" style="width:0%"></div>
-        </div>
-        <div class="flex justify-between text-sm text-gray-400 mt-1">
-          <span id="progressText">—</span>
-          <span id="distanceText">—</span>
-        </div>
-      </div>
-    </section>
+  <section class="card">
+  <h2>Goal calculator</h2>
+  <p class="note">Live BMI and goal suggestion update as you edit your profile. You can set your own target anytime.</p>
+  <div class="grid grid-3">
+    <div class="stat"><div class="label">Current BMI</div><div class="value" id="curBMI">—</div></div>
+    <div class="stat"><div class="label">Suggested goal (lb)</div><div class="value" id="suggestedGoal">—</div></div>
+    <div class="stat"><div class="label">Your goal (lb)</div><div class="value" id="goalDisplay">—</div></div>
+  </div>
+
+  <div class="row" style="margin-top:12px;">
+    <label for="goal_weight">Override goal weight</label>
+    <input id="goal_weight" type="number" min="80" max="500" placeholder="Enter your target (lb)" />
+    <button id="saveGoal" class="primary">Save goal</button>
+    <span id="goalStatus" class="note"></span>
+  </div>
+
+  <div style="margin-top:14px;">
+    <div class="label">Progress toward goal</div>
+    <div id="progressWrap" style="background:#0b1220; border:1px solid var(--border); border-radius:8px; height:16px; overflow:hidden;">
+      <div id="progressBar" style="height:100%; width:0%; background: var(--good);"></div>
+    </div>
+    <div class="row" style="justify-content:space-between; margin-top:6px;">
+      <span class="note" id="progressText">—</span>
+      <span class="note" id="distanceText">—</span>
+    </div>
+  </div>
+</section>
+
 
     <!-- Workout Plan -->
     <section id="workouts" class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
