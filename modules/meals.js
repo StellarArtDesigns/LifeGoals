@@ -1,31 +1,31 @@
-// meals.js
-import { saveData, loadData, formatDate } from './utils.js';
+import { saveData, loadData } from './utils.js';
 
-export function initMeals() {
-  // Load saved meals or start fresh
-  const meals = loadData("meals", []);
+const mealTemplates = {
+  balanced: { ... },
+  keto: { ... },
+  vegetarian: { ... }
+};
 
-  // Example: render meals to console for now
-  console.log("Meals initialized:", meals);
-
-  // Hook into UI later (buttons, forms, etc.)
-  setupMealForm(meals);
+function filterMeal(meal, sensitivities) {
+  if (sensitivities.includes("gluten") && /bread|toast|pasta|wrap/i.test(meal)) {
+    return "Gluten-free alternative";
+  }
+  if (sensitivities.includes("dairy") && /cheese|yogurt|milk/i.test(meal)) {
+    return "Dairy-free alternative";
+  }
+  if (sensitivities.includes("nuts") && /almond|peanut|cashew/i.test(meal)) {
+    return "Nut-free alternative";
+  }
+  return meal;
 }
 
-// Add a new meal entry
-function addMeal(meals, meal) {
-  const entry = {
-    ...meal,
-    date: formatDate(),
-  };
-  meals.push(entry);
-  saveData("meals", meals);
-  console.log("Meal added:", entry);
-}
-
-// Example form handler (replace with real DOM later)
-function setupMealForm(meals) {
-  // Placeholder: imagine a button click adds a meal
-  const sampleMeal = { name: "Grilled Chicken Salad", calories: 350 };
-  addMeal(meals, sampleMeal);
+export function generateMealPlan(dietType, sensitivities) {
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const templates = mealTemplates[dietType] || mealTemplates["balanced"];
+  return days.map((day, i) => ({
+    day,
+    breakfast: filterMeal(templates.breakfast[i % templates.breakfast.length], sensitivities),
+    lunch: filterMeal(templates.lunch[i % templates.lunch.length], sensitivities),
+    dinner: filterMeal(templates.dinner[i % templates.dinner.length], sensitivities)
+  }));
 }
