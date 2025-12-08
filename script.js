@@ -1,3 +1,8 @@
+import { initMeals } from './modules/meals.js';
+
+document.addEventListener("DOMContentLoaded", () => {
+  initMeals();
+});
 // Local storage helper
 const store = {
   get: (key, fallback) => {
