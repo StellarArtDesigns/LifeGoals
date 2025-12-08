@@ -147,23 +147,15 @@ els.genWorkout.addEventListener('click', ()=>{
 });
 
 // Meal templates
-const mealTemplates = {
-  balanced: {
-    breakfast: ["Oatmeal + fruit", "Eggs + toast", "Smoothie"],
-    lunch: ["Chicken salad", "Turkey wrap", "Quinoa bowl"],
-    dinner: ["Salmon + rice", "Beef + veggies", "Shrimp tacos"]
-  },
-  keto: {
-    breakfast: ["Eggs + avocado", "Chia pudding", "Smoked salmon"],
-    lunch: ["Cobb salad", "Burger bowl", "Zucchini noodles"],
-    dinner: ["Steak + veg", "Chicken alfredo (zoodles)", "Pork chops"]
-  },
-  vegetarian: {
-    breakfast: ["Oatmeal + seeds", "Smoothie", "Tofu scramble"],
-    lunch: ["Quinoa + chickpea salad", "Veggie wrap", "Lentil soup"],
-    dinner: ["Stir-fry + tofu", "Bean chili", "Veggie curry"]
-  }
-};
+import { generateMealPlan } from './modules/meals.js';
+
+els.genMeals.addEventListener('click', () => {
+  const p = store.get('profile', null);
+  if (!p) return alert("Save your profile first.");
+  const plan = generateMealPlan(p.dietType, p.sensitivities || []);
+  renderTable(plan, els.mealTable);
+});
+
 
 // Sensitivity filter
 function filterMeal(meal, sensitivities) {
